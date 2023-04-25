@@ -1,5 +1,9 @@
 import requests
 import numpy as np
+<<<<<<< HEAD
+=======
+import pandas as pd
+>>>>>>> 5596ba2 (데이터 가공)
 from bs4 import BeautifulSoup
 
 url = 'https://www.weather.go.kr/w/weather/forecast/mid-term.do'
@@ -38,4 +42,14 @@ we = weathers[140 : -1]
 we.remove('그래프')
 
 tmin = np.reshape(tmin, (-1,8))
+<<<<<<< HEAD
 tmax = np.reshape(tmax, (-1,8))
+=======
+tmax = np.reshape(tmax, (-1,8))
+
+row = ['Fri','Sat','Sun','Mon','Tue','Wed','Thu','Fri'] # 04.25 기준
+col = region
+tmin_df = pd.DataFrame(tmin, index = col, columns = row)
+tmax_df = pd.DataFrame(tmax, index = col, columns = row)
+
+>>>>>>> 5596ba2 (데이터 가공)
