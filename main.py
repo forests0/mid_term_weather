@@ -52,4 +52,5 @@ col = region
 tmin_df = pd.DataFrame(tmin, index = col, columns = row)
 tmax_df = pd.DataFrame(tmax, index = col, columns = row)
 
->>>>>>> 5596ba2 (데이터 가공)
+tmin_df = tmin_df.astype({'Fri':'int', 'Sat':'int', 'Sun':'int', 'Mon':'int', 'Tue':'int', 'Wed':'int', 'Thu':'int', 'sFri' : 'int' })
+tmax_df = tmax_df.astype({'Fri':'int', 'Sat':'int', 'Sun':'int', 'Mon':'int', 'Tue':'int', 'Wed':'int', 'Thu':'int', 'sFri' : 'int' })
