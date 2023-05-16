@@ -1,9 +1,6 @@
 import requests
 import numpy as np
-<<<<<<< HEAD
-=======
 import pandas as pd
->>>>>>> 5596ba2 (데이터 가공)
 from bs4 import BeautifulSoup
 
 url = 'https://www.weather.go.kr/w/weather/forecast/mid-term.do'
@@ -24,33 +21,36 @@ elements = soup.select('table > tbody > tr > td')
 
 for index, element in enumerate(elements, 1) :
   weathers.append(element.text)
-  print("{} 지역 날씨: {}".format(index, element.text))
+  #print("{} 지역 날씨: {}".format(index, element.text))
 
 tmin = []
 el = soup.select('table > tbody > tr > td > span.tmn')
 for index, element in enumerate(el, 1) :
   tmin.append(element.text)
-  print('{} : {}'.format(index, element.text))
+  #print('{} : {}'.format(index, element.text))
+
+elr = soup.select('table > tbody > tr > td.midterm-city > span.sticky')
+for index, element in enumerate(elr, 1) :
+  region.append(element.text)
 
 tmax = []
 els = soup.select('table > tbody > tr > td > span.tmx')
 for index, element in enumerate(els, 1) :
   tmin.append(element.text)
-  print('{} : {}'.format(index, element.text))
-
-we = weathers[140 : -1]
-we.remove('그래프')
+  #print('{} : {}'.format(index, element.text))
 
 tmin = np.reshape(tmin, (-1,8))
-<<<<<<< HEAD
-tmax = np.reshape(tmax, (-1,8))
-=======
 tmax = np.reshape(tmax, (-1,8))
 
 row = ['Fri','Sat','Sun','Mon','Tue','Wed','Thu','Fri'] # 04.25 기준
 col = region
 tmin_df = pd.DataFrame(tmin, index = col, columns = row)
 tmax_df = pd.DataFrame(tmax, index = col, columns = row)
+tmin_df = tmin_df.transpose()
+tmax_df = tmax_df.transpose()
 
 tmin_df = tmin_df.astype({'Fri':'int', 'Sat':'int', 'Sun':'int', 'Mon':'int', 'Tue':'int', 'Wed':'int', 'Thu':'int', 'sFri' : 'int' })
 tmax_df = tmax_df.astype({'Fri':'int', 'Sat':'int', 'Sun':'int', 'Mon':'int', 'Tue':'int', 'Wed':'int', 'Thu':'int', 'sFri' : 'int' })
+
+temp_all = []
+temp_all = pd.concat([tmin_df, tmax_df], ignore_index = True, axis = 1)
