@@ -1,7 +1,12 @@
-import requests
 import numpy as np
-import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import requests
 from bs4 import BeautifulSoup
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import random
 
 url = 'https://www.weather.go.kr/w/weather/forecast/mid-term.do'
 response = requests.get(url)
@@ -10,7 +15,6 @@ weathers = []
 
 if response.status_code == 200:
   html = response.text
-  #print(html)
 else:
   print('Failed to retrieve the web page')
 
@@ -54,3 +58,11 @@ tmax_df = tmax_df.astype({'Fri':'int', 'Sat':'int', 'Sun':'int', 'Mon':'int', 'T
 
 temp_all = []
 temp_all = pd.concat([tmin_df, tmax_df], ignore_index = True, axis = 1)
+
+fig = plt.figure()
+fig.set_facecolor('white')
+for _, label in enumerate(region):
+    x = range(10)
+    y = [random.randint(1,10) for _ in range(10)]
+    sns.lineplot(x=x, y=y, label=label) # label 범례 라벨
+    plt.legend()
